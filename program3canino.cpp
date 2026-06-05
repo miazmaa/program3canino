@@ -17,10 +17,6 @@ int main(int argc, char** argv) {
 	ALLEGRO_DISPLAY* display = NULL;
 	ALLEGRO_EVENT_QUEUE* event_queue = NULL;
 	ALLEGRO_TIMER* timer = NULL;
-
-	float duck_x = SCREEN_W / 2.0 - kirby_SIZE / 2.0;
-	float duck_y = SCREEN_H / 2.0 - kirby_SIZE / 2.0;
-	float duck_dx = -4.0, duck_dy = 4.0;
 	bool redraw = true;
 	ALLEGRO_BITMAP* space = NULL;
 	ALLEGRO_BITMAP* kirby = NULL;
@@ -80,14 +76,6 @@ int main(int argc, char** argv) {
 		al_wait_for_event(event_queue, &ev);
 		if (ev.type == ALLEGRO_EVENT_TIMER) {
 			if (!game_over) {
-				if (duck_x < 0 || duck_x > SCREEN_W - kirby_SIZE) {
-					duck_dx = -duck_dx;
-				}
-				if (duck_y < 0 || duck_y > SCREEN_H - kirby_SIZE) {
-					duck_dy = -duck_dy;
-				}
-				duck_x += duck_dx;
-				duck_y += duck_dy;
 				for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
 					waddleDoos[i].StartWaddledoo(SCREEN_W, SCREEN_H);
 					waddleDoos[i].UpdateWaddledoo();
@@ -110,12 +98,12 @@ int main(int argc, char** argv) {
 			al_clear_to_color(al_map_rgb(0, 0, 0));
 			if (!game_over) {
 				al_draw_bitmap(space, 0, 0, 0);
-				int star_position = SCREEN_H / 8;
-				al_draw_scaled_bitmap(popstar, 0, 0, al_get_bitmap_width(popstar), al_get_bitmap_height(popstar), 0, SCREEN_H - star_position, SCREEN_W, star_position, 0);
+				int popstar_height = SCREEN_H / 8;
+				al_draw_scaled_bitmap(popstar, 0, 0, al_get_bitmap_width(popstar), al_get_bitmap_height(popstar), 0, SCREEN_H - popstar_height, SCREEN_W, popstar_height, 0);
 				for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
 					waddleDoos[i].DrawWaddledoo();
 				}
-				al_draw_bitmap(kirby, duck_x, duck_y, 0);
+				al_draw_scaled_bitmap(kirby, 0, 0, al_get_bitmap_width(kirby), al_get_bitmap_height(kirby), (SCREEN_W - 64) / 2, (SCREEN_H - popstar_height) + (popstar_height - 64) / 2, 64, 64, 0);
 				al_flip_display();
 			}
 			else {
