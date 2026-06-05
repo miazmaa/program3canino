@@ -21,12 +21,12 @@
     <ClCompile Include="snowballs.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="penguinDropping.cpp">
+    <ClCompile Include="waddledooDropping.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="penguinDropping.h">
+    <ClInclude Include="waddledooDropping.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="snowballs.h">

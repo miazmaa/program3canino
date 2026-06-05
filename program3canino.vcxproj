@@ -146,12 +146,12 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="penguinDropping.cpp" />
+    <ClCompile Include="waddledooDropping.cpp" />
     <ClCompile Include="program3canino.cpp" />
     <ClCompile Include="snowballs.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="penguinDropping.h" />
+    <ClInclude Include="waddledooDropping.h" />
     <ClInclude Include="snowballs.h" />
   </ItemGroup>
   <ItemGroup>

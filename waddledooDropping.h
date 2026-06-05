@@ -1,13 +1,14 @@
 #pragma once
 #include <allegro5\allegro.h>
-class penguinDropping
+class waddledooDropping
 {
 public:
-    penguinDropping();
-    ~penguinDropping();
-    void DrawPenguin();
-    void StartPenguin(int WIDTH, int HEIGHT);
-    void UpdatePenguin();
+    waddledooDropping();
+    ~waddledooDropping();
+    void DrawWaddledoo();
+    void StartWaddledoo(int WIDTH, int HEIGHT);
+    void UpdateWaddledoo();
+    bool CollideWaddledoo(ALLEGRO_BITMAP& popstar);
     int getBoundX() { return boundx; }
     int getBoundY() { return boundy; }
     int getX() { return x; } 
