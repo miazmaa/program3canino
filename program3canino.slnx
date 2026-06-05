@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="program3canino.vcxproj" Id="6a245a58-050c-4324-ab54-e81f85321c91" />
+</Solution>
