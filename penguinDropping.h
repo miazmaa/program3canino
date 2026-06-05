@@ -10,7 +10,7 @@ public:
     void UpdatePenguin();
     int getBoundX() { return boundx; }
     int getBoundY() { return boundy; }
-    int getX() { return x; }
+    int getX() { return x; } 
     int getY() { return y; }
     bool getLive() { return live; }
     void setLive(bool l) { live = l; }
