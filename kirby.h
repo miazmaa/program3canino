@@ -7,8 +7,8 @@ public:
 	kirby(int HEIGHT, int WIDTH);
 	~kirby();
 	void DrawKirby();
-	void MoveLeft();
-	void MoveRight(int SCREEN_W);
+	void RotateLeft();
+	void RotateRight();
 	int getBoundX() { return boundx; }
 	int getBoundY() { return boundy; }
 	int getX() { return x; }
@@ -17,7 +17,6 @@ public:
 	int getLives() { return lives; }
 	int getScore() { return score; }
 	void addScore() { score++; }
-
 private:
 	void update_image();
 	int x;

@@ -96,10 +96,10 @@ int main(int argc, char** argv) {
 		if (ev.type == ALLEGRO_EVENT_TIMER) {
 			if (!game_over) {
 				if (keys[0]) {
-					player.MoveLeft();
+					player.RotateLeft();
 				}
 				if (keys[1]) {
-					player.MoveRight(SCREEN_W);
+					player.RotateRight();
 				}
 				if (keys[2]) {
 					for (int i = 0; i < NUM_STARS; i++) {
