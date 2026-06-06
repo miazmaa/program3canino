@@ -13,7 +13,6 @@ public:
 	int getBoundY() { return boundy; }
 	int getX() { return x; }
 	int getY() { return y; }
-	void removeLife();
 	int getLives() { return lives; }
 	int getScore() { return score; }
 	void addScore() { score++; }

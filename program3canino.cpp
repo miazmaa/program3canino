@@ -112,6 +112,7 @@ int main(int argc, char** argv) {
 				for (int i = 0; i < NUM_STARS; i++)
 				{
 					starsArray[i].UpdateStar();
+					starsArray[i].CollideStar(waddleDoos, NUM_WADDLE_DOOS);
 				}
 				for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
 

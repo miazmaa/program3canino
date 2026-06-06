@@ -29,6 +29,3 @@ void kirby::MoveRight(int SCREEN_W) {
 		x = SCREEN_W - boundx;
 	}
 }
-void kirby::removeLife() {
-	lives--;
-}
