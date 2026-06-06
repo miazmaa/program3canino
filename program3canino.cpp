@@ -4,7 +4,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include "waddledooDropping.h"
-#include "snowballs.h"
+#include "kirby.h"
+#include "star.h"
 #include <iostream>
 #include <ctime>
 
@@ -19,7 +20,6 @@ int main(int argc, char** argv) {
 	ALLEGRO_TIMER* timer = NULL;
 	bool redraw = true;
 	ALLEGRO_BITMAP* space = NULL;
-	ALLEGRO_BITMAP* kirby = NULL;
 	ALLEGRO_BITMAP* popstar = NULL;
 	srand(time(NULL)); //for seeding enemy placement later
 	if (!al_init()) {
@@ -36,9 +36,6 @@ int main(int argc, char** argv) {
 		al_destroy_timer(timer);
 		return -1;
 	}
-
-
-
 	al_init_image_addon();
 	al_init_font_addon();
 	al_init_ttf_addon();
@@ -46,20 +43,24 @@ int main(int argc, char** argv) {
 	bool game_over = false;
 	int planet_top = SCREEN_H - (SCREEN_H / 8);
 	space = al_load_bitmap("space.png");
-	kirby = al_load_bitmap("warpstar.png");
 	popstar = al_load_bitmap("popstar.png");
 	ALLEGRO_FONT* rubik = al_load_ttf_font("rubik.ttf", 20, 0);
-	al_convert_mask_to_alpha(kirby, al_map_rgb(255, 0, 255));
 	const int NUM_WADDLE_DOOS = 10;
+	const int NUM_STARS = 10;;
+	enum KEYS { LEFT, RIGHT, SPACE };
+	bool keys[3] = { false, false, false };
 	waddledooDropping waddleDoos[NUM_WADDLE_DOOS];
+	stars starsArray[NUM_STARS];
+	kirby player(SCREEN_H, SCREEN_W);
 	event_queue = al_create_event_queue();
 	if (!event_queue) {
-		al_destroy_bitmap(kirby);
 		al_destroy_display(display);
 		al_destroy_timer(timer);
 		return -1;
 	}
+	al_install_keyboard();
 
+	al_register_event_source(event_queue, al_get_keyboard_event_source());
 	al_register_event_source(event_queue, al_get_display_event_source(display));
 
 	al_register_event_source(event_queue, al_get_timer_event_source(timer));
@@ -74,49 +75,84 @@ int main(int argc, char** argv) {
 	{
 		ALLEGRO_EVENT ev;
 		al_wait_for_event(event_queue, &ev);
+		if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+		{
+			break;
+		}
+		if (ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+			switch (ev.keyboard.keycode) {
+			case ALLEGRO_KEY_LEFT: keys[0] = true; break;
+			case ALLEGRO_KEY_RIGHT: keys[1] = true; break;
+			case ALLEGRO_KEY_SPACE: keys[2] = true; break;
+			}
+		}
+		else if (ev.type == ALLEGRO_EVENT_KEY_UP) {
+			switch (ev.keyboard.keycode) {
+			case ALLEGRO_KEY_LEFT: keys[0] = false; break;
+			case ALLEGRO_KEY_RIGHT: keys[1] = false; break;
+			case ALLEGRO_KEY_SPACE: keys[2] = false; break;
+			}
+		}
 		if (ev.type == ALLEGRO_EVENT_TIMER) {
 			if (!game_over) {
-				for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
-					waddleDoos[i].StartWaddledoo(SCREEN_W, SCREEN_H);
-					waddleDoos[i].UpdateWaddledoo();
-					if (waddleDoos[i].CollideWaddledoo(*popstar)) {
-						hits++;
-						if (hits >= 5) {
-							game_over = true;
+				if (keys[0]) {
+					player.MoveLeft();
+				}
+				if (keys[1]) {
+					player.MoveRight(SCREEN_W);
+				}
+				if (keys[2]) {
+					for (int i = 0; i < NUM_STARS; i++) {
+						if (!starsArray[i].getLive()) {
+							starsArray[i].FireStars(player);
+							break;
 						}
 					}
 				}
-			}
-			redraw = true;
-		}
-		else if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-			break;
-		}
-
-		if (redraw && al_is_event_queue_empty(event_queue)) {
-			redraw = false;
-			al_clear_to_color(al_map_rgb(0, 0, 0));
-			if (!game_over) {
-				al_draw_bitmap(space, 0, 0, 0);
-				int popstar_height = SCREEN_H / 8;
-				al_draw_scaled_bitmap(popstar, 0, 0, al_get_bitmap_width(popstar), al_get_bitmap_height(popstar), 0, SCREEN_H - popstar_height, SCREEN_W, popstar_height, 0);
-				for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
-					waddleDoos[i].DrawWaddledoo();
+				for (int i = 0; i < NUM_STARS; i++)
+				{
+					starsArray[i].UpdateStar();
 				}
-				al_draw_scaled_bitmap(kirby, 0, 0, al_get_bitmap_width(kirby), al_get_bitmap_height(kirby), (SCREEN_W - 64) / 2, (SCREEN_H - popstar_height) + (popstar_height - 64) / 2, 64, 64, 0);
-				al_flip_display();
+				for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
+
+					waddleDoos[i].StartWaddledoo(SCREEN_W, SCREEN_H);
+					waddleDoos[i].UpdateWaddledoo();
+
+					if (waddleDoos[i].CollideWaddledoo(*popstar)) {
+						hits++;
+						if (hits >= 5)
+							game_over = true;
+					}
+				}
+				redraw = true;
 			}
-			else {
+			if (redraw && al_is_event_queue_empty(event_queue)) {
+				redraw = false;
 				al_clear_to_color(al_map_rgb(0, 0, 0));
-				al_draw_textf(rubik, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 - 20, ALLEGRO_ALIGN_CENTER, "Game Over!");
-				al_flip_display();
-				al_rest(5.0);
-				break;
+				if (!game_over) {
+					al_draw_bitmap(space, 0, 0, 0);
+					int popstar_height = SCREEN_H / 8;
+					al_draw_scaled_bitmap(popstar, 0, 0, al_get_bitmap_width(popstar), al_get_bitmap_height(popstar), 0, SCREEN_H - popstar_height, SCREEN_W, popstar_height, 0);
+					player.DrawKirby();
+					for (int i = 0; i < NUM_STARS; i++)
+					{
+						starsArray[i].DrawStars();
+					}
+					for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
+						waddleDoos[i].DrawWaddledoo();
+					}
+					al_flip_display();
+				}
+				else {
+					al_clear_to_color(al_map_rgb(0, 0, 0));
+					al_draw_textf(rubik, al_map_rgb(255, 255, 255), SCREEN_W / 2, SCREEN_H / 2 - 20, ALLEGRO_ALIGN_CENTER, "Game Over!");
+					al_flip_display();
+					al_rest(5.0);
+					break;
+				}
 			}
 		}
 	}
-
-	al_destroy_bitmap(kirby);
 	al_destroy_bitmap(space);
 	al_destroy_bitmap(popstar);
 	al_destroy_timer(timer);

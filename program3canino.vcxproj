@@ -146,13 +146,15 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="kirby.cpp" />
     <ClCompile Include="waddledooDropping.cpp" />
     <ClCompile Include="program3canino.cpp" />
-    <ClCompile Include="snowballs.cpp" />
+    <ClCompile Include="star.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="kirby.h" />
     <ClInclude Include="waddledooDropping.h" />
-    <ClInclude Include="snowballs.h" />
+    <ClInclude Include="star.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

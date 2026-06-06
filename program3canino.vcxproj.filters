@@ -18,10 +18,13 @@
     <ClCompile Include="program3canino.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="snowballs.cpp">
+    <ClCompile Include="star.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="waddledooDropping.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kirby.cpp">
       <Filter>Header Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -29,7 +32,10 @@
     <ClInclude Include="waddledooDropping.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="snowballs.h">
+    <ClInclude Include="star.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kirby.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
