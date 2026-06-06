@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 	space = al_load_bitmap("space.png");
 	popstar = al_load_bitmap("popstar.png");
 	ALLEGRO_FONT* rubik = al_load_ttf_font("rubik.ttf", 20, 0);
-	const int NUM_WADDLE_DOOS = 10;
+	const int NUM_WADDLE_DOOS = 15;
 	const int NUM_STARS = 10;;
 	enum KEYS { LEFT, RIGHT, SPACE };
 	bool keys[3] = { false, false, false };

@@ -21,7 +21,7 @@ void waddledooDropping::DrawWaddledoo() {
 void waddledooDropping::StartWaddledoo(int WIDTH, int HEIGHT) {
 	if (!live)
 	{
-		if (rand() % 500 == 0)
+		if (rand() % 200 == 0)
 		{
 			live = true;
 			x = rand() % (WIDTH - boundx);
