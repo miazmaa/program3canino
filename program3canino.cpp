@@ -142,6 +142,7 @@ int main(int argc, char** argv) {
 					for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
 						waddleDoos[i].DrawWaddledoo();
 					}
+					al_draw_textf(rubik, al_map_rgb(0, 255, 0), SCREEN_W - 20, SCREEN_H - 35, ALLEGRO_ALIGN_RIGHT, "lives: %d", 5 - hits);
 					al_flip_display();
 				}
 				else {

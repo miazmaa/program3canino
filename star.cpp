@@ -22,7 +22,7 @@ void stars::FireStars(kirby& player) {
 
 		x = player.getX() + player.getBoundX() / 2;
 		y = player.getY();
-		radian_angle = player.getAngle() * ALLEGRO_PI / 180.0f;
+		radian_angle =player.getAngle() * ALLEGRO_PI / 180.0f;
 	}
 }
 void stars::UpdateStar() {
