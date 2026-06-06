@@ -111,7 +111,7 @@ int main(int argc, char** argv) {
 				}
 				for (int i = 0; i < NUM_STARS; i++)
 				{
-					starsArray[i].UpdateStar();
+					starsArray[i].UpdateStar(); //for waddle doo + star collision
 					starsArray[i].CollideStar(waddleDoos, NUM_WADDLE_DOOS);
 				}
 				for (int i = 0; i < NUM_WADDLE_DOOS; i++) {
@@ -121,7 +121,7 @@ int main(int argc, char** argv) {
 
 					if (waddleDoos[i].CollideWaddledoo(*popstar)) {
 						hits++;
-						if (hits >= 5)
+						if (hits >= 5) //keeps track of game objective
 							game_over = true;
 					}
 				}
@@ -131,10 +131,11 @@ int main(int argc, char** argv) {
 				redraw = false;
 				al_clear_to_color(al_map_rgb(0, 0, 0));
 				if (!game_over) {
+					//screen drawing code goes here
 					al_draw_bitmap(space, 0, 0, 0);
 					int popstar_height = SCREEN_H / 8;
 					al_draw_scaled_bitmap(popstar, 0, 0, al_get_bitmap_width(popstar), al_get_bitmap_height(popstar), 0, SCREEN_H - popstar_height, SCREEN_W, popstar_height, 0);
-					player.DrawKirby();
+					player.DrawKirby(); //draw kirby on top of the center of popstar
 					for (int i = 0; i < NUM_STARS; i++)
 					{
 						starsArray[i].DrawStars();

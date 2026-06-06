@@ -19,10 +19,9 @@ void stars::FireStars(kirby& player) {
 	if (!live)
 	{
 		live = true;
-
 		x = player.getX() + player.getBoundX() / 2;
 		y = player.getY();
-		radian_angle =player.getAngle() * ALLEGRO_PI / 180.0f;
+		radian_angle =player.getAngle() * ALLEGRO_PI / 180.0f; //edited from code in Canvas assignment since the dimensions are different
 	}
 }
 void stars::UpdateStar() {

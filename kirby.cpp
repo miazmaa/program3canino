@@ -16,8 +16,8 @@ kirby::kirby(int HEIGHT, int WIDTH) {
 kirby::~kirby() {
 	al_destroy_bitmap(image);
 }
-void kirby::DrawKirby() {
-	al_draw_rotated_bitmap(
+void kirby::DrawKirby() { 
+	al_draw_rotated_bitmap( //used for rotating kirby w keyboard presses
 		image, boundx / 2, boundy / 2, x + boundx / 2, y + boundy / 2, -(angle - 90) * ALLEGRO_PI / 180.0f, 0);
 }
 void kirby::RotateLeft()

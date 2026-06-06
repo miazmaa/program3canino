@@ -7,7 +7,7 @@ waddledooDropping::waddledooDropping() {
 	live = false;
 	speed = 2;
 	boundx = 32;
-	boundy = 32;
+	boundy = 32; //all 32x32 images
 }
 waddledooDropping::~waddledooDropping() {
 	al_destroy_bitmap(waddle_doo);
@@ -21,7 +21,7 @@ void waddledooDropping::DrawWaddledoo() {
 void waddledooDropping::StartWaddledoo(int WIDTH, int HEIGHT) {
 	if (!live)
 	{
-		if (rand() % 300 == 0)
+		if (rand() % 300 == 0) //spawn rate
 		{
 			live = true;
 			x = rand() % (WIDTH - boundx);
