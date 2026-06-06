@@ -13,6 +13,7 @@ public:
 	int getBoundY() { return boundy; }
 	int getX() { return x; }
 	int getY() { return y; }
+	float getAngle() { return angle; }
 	int getLives() { return lives; }
 	int getScore() { return score; }
 	void addScore() { score++; }
@@ -21,6 +22,7 @@ private:
 	void update_image();
 	int x;
 	int y;
+	float angle;
 	int lives;
 	int speed;
 	int boundx;

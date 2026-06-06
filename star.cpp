@@ -26,7 +26,9 @@ void stars::FireStars(kirby& player) {
 }
 void stars::UpdateStar() {
 	if (live) {
-		y -= speed;
+		const int BALL_SPEED = speed;
+		x += BALL_SPEED * cos(radian_angle);
+		y -= BALL_SPEED * sin(radian_angle);
 		if (y < -32 || y > 480 || x < -32 || x > 640) { //check to see if star left screen, is 32x32
 			live = false;
 		}

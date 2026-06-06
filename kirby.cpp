@@ -11,6 +11,7 @@ kirby::kirby(int HEIGHT, int WIDTH) {
 	boundx = al_get_bitmap_width(image);
 	boundy = al_get_bitmap_height(image);
 	score = 0;
+	angle = 128.0f;
 }
 kirby::~kirby() {
 	al_destroy_bitmap(image);
